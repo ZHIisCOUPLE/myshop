@@ -1,0 +1,25 @@
+{
+  "name": "select2/select2",
+  "description": "Select2 is a jQuery based replacement for select boxes.",
+  "type": "component",
+  "homepage": "https://select2.org/",
+  "license": "MIT",
+  "require": {
+    "robloach/component-installer": "*"
+  },
+  "extra": {
+    "component": {
+      "scripts": [
+        "/static/plugins/adminLTE/dist/js/select2.js"
+      ],
+      "styles": [
+        "/static/plugins/adminLTE/dist/css/select2.css"
+      ],
+      "files": [
+        "/static/plugins/adminLTE/dist/js/select2.js",
+        "/static/plugins/adminLTE/dist/js/i18n/*.js",
+        "/static/plugins/adminLTE/dist/css/select2.css"
+      ]
+    }
+  }
+}

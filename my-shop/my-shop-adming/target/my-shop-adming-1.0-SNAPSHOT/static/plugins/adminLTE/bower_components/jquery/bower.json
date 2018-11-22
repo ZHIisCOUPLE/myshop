@@ -1,0 +1,14 @@
+{
+  "name": "jquery",
+  "main": "/static/plugins/adminLTE/dist/jquery.js",
+  "license": "MIT",
+  "ignore": [
+    "package.json"
+  ],
+  "keywords": [
+    "jquery",
+    "javascript",
+    "browser",
+    "library"
+  ]
+}

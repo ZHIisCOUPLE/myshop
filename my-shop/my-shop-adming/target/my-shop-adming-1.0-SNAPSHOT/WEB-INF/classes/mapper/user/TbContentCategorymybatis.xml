@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace  写的是Dao这个interface接口-->
+<mapper namespace="com.xm.shop.dao.TbContentCategoryDao">
+
+
+    <!--抽取sql共同的部分-->
+    <sql id="TbContentCategoryColumn">
+        a.id as "id",
+        a.name as "name",
+        IFNULL(a.parent_id,0) as "parent.id",
+        IFNULL(b.name,"*") as "parent.name",
+        IFNULL(b.is_parent,0) as "parent.isParent",
+        a.status as "status",
+        a.sort_order as "order",
+        a.is_parent as "isParent",
+        a.created as "created",
+        a.updated as "updated"
+
+    </sql>
+
+    <select id="getByid" resultType="com.xm.shop.entity.TbContentCategory">
+        select
+        <include refid="TbContentCategoryColumn"></include>
+        from tb_content_category a
+        left join  tb_content_category b on a.parent_id=b.id
+        where a.id=#{id}
+    </select>
+
+    <select id="findList" resultType="com.xm.shop.entity.TbContentCategory">
+    select
+    <include refid="TbContentCategoryColumn"></include>
+    from tb_content_category a
+    left join  tb_content_category b on a.parent_id=b.id
+    where 1=1
+    <if test="name!=null and name!=''">
+        and a.name like concat('%',#{name},'%')
+    </if>
+
+    <if test="page!=null">
+        limit #{page.start},#{page.pageSize}
+    </if>
+
+</select>
+
+    <select id="findListCount" resultType="java.lang.Long">
+        select
+        count(*)
+        from tb_content_category a
+        left join  tb_content_category b on a.parent_id=b.id
+        where 1=1
+        <if test="name!=null and name!=''">
+            and a.name like concat('%',#{name},'%')
+        </if>
+
+    </select>
+
+    <insert id="save">
+        insert into tb_content_category(name,parent_id,sort_order,is_parent,created,updated)
+        values (#{name},#{parent.id},#{order},#{isParent},#{created},#{updated})
+    </insert>
+
+    <update id="update">
+        update tb_content_category set name=#{name},parent_id=#{parent.id},sort_order=#{order},updated=#{updated},is_parent=#{isParent} where id=#{id}
+    </update>
+
+    <delete id="delete">
+        delete from tb_content_category where id=#{id}
+    </delete>
+
+    <select id="getChildrenCategory" resultType="com.xm.shop.entity.TbContentCategory">
+        select
+        <include refid="TbContentCategoryColumn"></include>
+        from tb_content_category a
+        left join  tb_content_category b on a.parent_id=b.id
+        where a.parent_id=#{id}
+    </select>
+
+    <update id="setIsParentTrue">
+         update tb_content_category set is_parent=1 where id=#{id}
+    </update>
+
+    <update id="setIsParentFalse">
+        update tb_content_category set is_parent=0 where id=#{id}
+    </update>
+    <update id="setParentId">
+         update tb_content_category set parent_id=0 where id=#{id}
+    </update>
+
+    <select id="queryTreeTable" resultType="com.xm.shop.entity.TbContentCategory">
+        select
+        <include refid="TbContentCategoryColumn"></include>
+        from tb_content_category a
+        left join tb_content_category b on a.parent_id=b.id
+        order by a.parent_id asc,a.sort_order asc,a.id asc
+    </select>
+    <!--
+        mybatis 写参数格式是 #{}
+    -->
+    <!--
+    查询：
+    1.使用select 标签
+    2. id应该对应dao的方法名
+    3. resultType 对应你要映射的实体类
+    4. 在标签内部写SQL
+    5. 参数应该使用#{}格式
+    6. <include refid="userColumn"/>    ===================》引用抽取部分
+    -->
+    <!--<select id="getByEmailAndPassword" resultType="com.xm.shop.entity.User">-->
+        <!--select-->
+        <!--<include refid="userColumn"/>-->
+        <!--from tb_user a where a.email=#{email} and a.password=#{password}-->
+    <!--</select>-->
+
+
+    <!--<select id="findList" resultType="com.xm.shop.entity.User">-->
+        <!--select-->
+        <!--<include refid="userColumn"></include>-->
+        <!--from tb_user a-->
+        <!--where 1=1-->
+        <!--<if test="email!=null and email!=''">-->
+            <!--and a.email like concat('%',#{email},'%')-->
+        <!--</if>-->
+        <!--<if test="phone!=null and phone !=''">-->
+            <!--and a.phone like concat('%',#{phone},'%')-->
+        <!--</if>-->
+        <!--<if test="userName!=null and userName!=''">-->
+            <!--and a.username like concat('%',#{userName},'%')-->
+        <!--</if>-->
+        <!--<if test="page!=null">-->
+            <!--limit #{page.start},#{page.pageSize}-->
+        <!--</if>-->
+    <!--</select>-->
+
+    <!--<select id="findListCount" resultType="java.lang.Long">-->
+        <!--select count(*) from tb_user a-->
+        <!--where 1=1-->
+        <!--<if test="email!=null and email!='' ">and a.email like concat('%',#{email},'%')</if>-->
+        <!--<if test="phone!=null and phone!=''">and a.phone like concat('%',#{phone},'%')</if>-->
+        <!--<if test="userName!=null and userName!=''">and a.username like concat('%',#{userName},'%')</if>-->
+    <!--</select>-->
+
+    <!--<select id="queryById" resultType="com.qf.login.entity.User">-->
+    <!--select-->
+    <!--<include refid="userColumn"/>-->
+    <!--from tb_user-->
+    <!--where id=#{id}-->
+    <!--</select>-->
+
+    <!--<select id="queryByUserNameAndPassword" resultType="com.qf.login.entity.User">-->
+    <!--select-->
+    <!--<include refid="userColumn"/>-->
+    <!--from tb_user-->
+    <!--where username=#{userName} and password=#{password}-->
+    <!--</select>-->
+
+    <!--<select id="query" resultType="com.qf.login.entity.User">-->
+    <!--select-->
+    <!--<include refid="userColumn"/>-->
+    <!--from tb_user-->
+    <!--where username=#{userName} and password=#{password}-->
+    <!--</select>-->
+
+    <!--&lt;!&ndash;insert&ndash;&gt;-->
+    <!--<insert id="insert" >-->
+    <!--insert into tb_user (username,password,phone,email,created,updated) values (#{userName},#{password},#{phone},#{email},#{created},#{updated})-->
+    <!--</insert>-->
+
+
+    <!--&lt;!&ndash;删除&ndash;&gt;-->
+    <!--<delete id="delete">-->
+    <!--delete from tb_user where id=#{id}-->
+    <!--</delete>-->
+
+    <!--&lt;!&ndash;修改&ndash;&gt;-->
+    <!--<update id="update">-->
+    <!--update tb_user set phone=#{phone} where id=#{id}-->
+    <!--</update>-->
+
+
+</mapper>

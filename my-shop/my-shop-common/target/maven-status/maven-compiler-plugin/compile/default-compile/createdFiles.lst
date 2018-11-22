@@ -1,0 +1,15 @@
+com\xm\shop\intercepter\Hello_Intercepter.class
+com\xm\shop\persistence\BaseDao.class
+com\xm\shop\persistence\BaseServiceImpl.class
+com\xm\shop\intercepter\Login_Intercepter.class
+com\xm\shop\webSupport\hello.class
+com\xm\shop\utils\HttpClientUtils.class
+com\xm\shop\persistence\BaseService.class
+com\xm\shop\persistence\BaseController.class
+com\xm\shop\persistence\Result.class
+com\xm\shop\webSupport\PageResult.class
+com\xm\shop\webSupport\PageTag.class
+com\xm\shop\utils\PattenUtil.class
+com\xm\shop\persistence\BaseEntity.class
+com\xm\shop\webSupport\Page.class
+com\xm\shop\utils\BeanValidator.class

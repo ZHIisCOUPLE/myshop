@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE taglib PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN"
+        "http://java.sun.com/dtd/web-jsptaglibrary_1_2.dtd">
+<taglib>
+    <tlib-version>1.0</tlib-version>
+    <jsp-version>2.0</jsp-version>
+    <!--自定义short-name-->
+    <short-name>h</short-name>
+    <!-- backGroundTag -->
+    <!--自定义uri-->
+    <uri>http://www.zcy.tag</uri>
+    <tag>
+        <name>page</name>
+        <!--所建类的路径-->
+        <tag-class>com.xm.shop.webSupport.hello</tag-class>
+        <attribute>
+            <!--参数名-->
+            <name>maam</name>
+            <!--是否必需-->
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>      <!-- 是否支持恶劣表达式 -->
+            <!--参数类型-->
+            <type>java.lang.String</type>
+            <description></description>
+        </attribute>
+
+    </tag>
+</taglib>

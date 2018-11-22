@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace  写的是Dao这个interface接口-->
+<mapper namespace="com.xm.shop.dao.Api_LoginDao">
+
+    <sql id="userColumns">
+        a.id as "id",
+        a.username as "userName",
+        a.email as "email",
+        a.phone as "phone",
+        a.created,
+        a.updated
+    </sql>
+
+    <select id="getById" resultType="com.xm.shop.entity.User">
+        select
+        <include refid="userColumns"></include>
+        from tb_user a
+        where id=#{id}
+    </select>
+
+    <select id="getByEmailAndPassword" resultType="com.xm.shop.entity.User">
+        select
+        <include refid="userColumns"></include>
+        from tb_user a
+        where a.email=#{email} and a.password=#{password}
+    </select>
+
+
+    <!--<select id="queryById" resultType="com.qf.login.entity.User">-->
+        <!--select-->
+        <!--<include refid="userColumn"/>-->
+        <!--from tb_user-->
+        <!--where id=#{id}-->
+    <!--</select>-->
+
+    <!--<select id="queryByUserNameAndPassword" resultType="com.qf.login.entity.User">-->
+        <!--select-->
+        <!--<include refid="userColumn"/>-->
+        <!--from tb_user-->
+        <!--where username=#{userName} and password=#{password}-->
+    <!--</select>-->
+
+    <!--<select id="query" resultType="com.qf.login.entity.User">-->
+        <!--select-->
+        <!--<include refid="userColumn"/>-->
+        <!--from tb_user-->
+        <!--where username=#{userName} and password=#{password}-->
+    <!--</select>-->
+
+    <!--&lt;!&ndash;insert&ndash;&gt;-->
+    <!--<insert id="insert" >-->
+        <!--insert into tb_user (username,password,phone,email,created,updated) values (#{userName},#{password},#{phone},#{email},#{created},#{updated})-->
+    <!--</insert>-->
+
+
+    <!--&lt;!&ndash;删除&ndash;&gt;-->
+    <!--<delete id="delete">-->
+        <!--delete from tb_user where id=#{id}-->
+    <!--</delete>-->
+
+    <!--&lt;!&ndash;修改&ndash;&gt;-->
+    <!--<update id="update">-->
+        <!--update tb_user set phone=#{phone} where id=#{id}-->
+    <!--</update>-->
+
+
+
+</mapper>

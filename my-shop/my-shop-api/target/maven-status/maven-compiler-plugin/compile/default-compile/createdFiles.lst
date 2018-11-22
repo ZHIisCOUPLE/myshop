@@ -1,0 +1,10 @@
+com\xm\shop\dao\Api_register_Dao.class
+com\xm\shop\service\Impl\Api_SlideShowServiceImpl.class
+com\xm\shop\service\Api_SlideShowService.class
+com\xm\shop\service\Api_register_Service.class
+com\xm\shop\dao\Api_SlideShowDao.class
+com\xm\shop\service\Api_Login_service.class
+com\xm\shop\dao\Api_LoginDao.class
+com\xm\shop\controller\Api_Controller.class
+com\xm\shop\service\Impl\Api_Login_serviceImpl.class
+com\xm\shop\service\Impl\Api_register_ServiceImpl.class

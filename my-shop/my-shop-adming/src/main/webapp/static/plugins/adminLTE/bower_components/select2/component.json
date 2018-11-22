@@ -1,0 +1,19 @@
+{
+  "name": "select2",
+  "repo": "select/select2",
+  "description": "Select2 is a jQuery based replacement for select boxes. It supports searching, remote data sets, and infinite scrolling of results.",
+  "version": "4.0.5",
+  "demo": "https://select2.org/",
+  "keywords": [
+    "jquery"
+  ],
+  "main": "/static/plugins/adminLTE/dist/js/select2.js",
+  "styles": [
+    "/static/plugins/adminLTE/dist/css/select2.css"
+  ],
+  "scripts": [
+    "/static/plugins/adminLTE/dist/js/select2.js",
+    "/static/plugins/adminLTE/dist/js/i18n/*.js"
+  ],
+  "license": "MIT"
+}

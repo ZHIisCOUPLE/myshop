@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace  写的是Dao这个interface接口-->
+<mapper namespace="com.xm.shop.dao.TbContentDao">
+
+
+    <!--抽取sql共同的部分-->
+    <sql id="TbContentColumn">
+        a.id as "id",
+        a.category_id as "parent.id",
+        b.name as "parent.name",
+        a.created,
+        a.updated,
+        a.title ,
+        a.sub_title as "subTitle",
+        a.title_desc as "titleDesc",
+        a.url,
+        a.pic as "picture1",
+        a.pic2 as "picture2",
+        a.content as "detail"
+    </sql>
+
+    <select id="getByid" resultType="com.xm.shop.entity.TbContent">
+        select
+        <include refid="TbContentColumn"></include>
+        from tb_content a
+        left join tb_content_category b on a.category_id=b.id
+        where a.id=#{id}
+    </select>
+
+    <sql id="findListCondttion">
+        <if test="title!=null and title!=''">
+            and a.title like concat('%',#{title},'%')
+        </if>
+        <if test="subTitle!=null and subTitle!=''">
+            and a.sub_title like concat('%',#{subTitle},'%')
+        </if>
+        <if test="titleDesc!=null and titleDesc!=''">
+            and a.title_desc like concat('%',#{titleDesc},'%')
+        </if>
+    </sql>
+
+    <select id="findList" resultType="com.xm.shop.entity.TbContent">
+        select
+        <include refid="TbContentColumn"></include>
+        from tb_content a
+        left join tb_content_category b on a.category_id=b.id
+        where 1=1
+        <include refid="findListCondttion"></include>
+
+        <if test="page!=null">
+            limit #{page.start},#{page.pageSize}
+        </if>
+    </select>
+
+    <select id="findListCount" resultType="java.lang.Long">
+        select
+        count(*)
+        from tb_content a
+        left join tb_content_category b on a.category_id=b.id
+        where 1=1
+        <include refid="findListCondttion"></include>
+    </select>
+
+    <insert id="save">
+        insert into tb_content (category_id,title,sub_title,title_desc,url,pic,pic2,content,created,updated)
+        values (#{parent.id},#{title},#{subTitle},#{titleDesc},#{url},#{picture1},#{picture2},#{detail},#{created},#{updated})
+    </insert>
+
+    <update id="update">
+        update tb_content
+        set
+        category_id = #{parent.id},
+        title=#{title},
+        sub_title=#{subTitle},
+        title_desc=#{titleDesc},
+        url=#{url},
+        pic=#{picture1},
+        pic2=#{picture2},
+        content=#{detail},
+        updated=#{updated}
+        where id=#{id}
+    </update>
+    <!--
+        mybatis 写参数格式是 #{}
+    -->
+    <!--
+    查询：
+    1.使用select 标签
+    2. id应该对应dao的方法名
+    3. resultType 对应你要映射的实体类
+    4. 在标签内部写SQL
+    5. 参数应该使用#{}格式
+    6. <include refid="userColumn"/>    ===================》引用抽取部分
+    -->
+
+    <!--<select id="queryById" resultType="com.qf.login.entity.User">-->
+    <!--select-->
+    <!--<include refid="userColumn"/>-->
+    <!--from tb_user-->
+    <!--where id=#{id}-->
+    <!--</select>-->
+
+    <!--<select id="queryByUserNameAndPassword" resultType="com.qf.login.entity.User">-->
+    <!--select-->
+    <!--<include refid="userColumn"/>-->
+    <!--from tb_user-->
+    <!--where username=#{userName} and password=#{password}-->
+    <!--</select>-->
+
+    <!--<select id="query" resultType="com.qf.login.entity.User">-->
+    <!--select-->
+    <!--<include refid="userColumn"/>-->
+    <!--from tb_user-->
+    <!--where username=#{userName} and password=#{password}-->
+    <!--</select>-->
+
+    <!--&lt;!&ndash;insert&ndash;&gt;-->
+    <!--<insert id="insert" >-->
+    <!--insert into tb_user (username,password,phone,email,created,updated) values (#{userName},#{password},#{phone},#{email},#{created},#{updated})-->
+    <!--</insert>-->
+
+
+    <!--&lt;!&ndash;删除&ndash;&gt;-->
+    <!--<delete id="delete">-->
+    <!--delete from tb_user where id=#{id}-->
+    <!--</delete>-->
+
+    <!--&lt;!&ndash;修改&ndash;&gt;-->
+    <!--<update id="update">-->
+    <!--update tb_user set phone=#{phone} where id=#{id}-->
+    <!--</update>-->
+
+
+</mapper>
